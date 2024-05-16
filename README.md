@@ -1,6 +1,6 @@
 # RafikiChat
 
-RafikiChat is a versatile live chat helper tool designed to integrate seamlessly with major social media platforms including Meta (Facebook, Instagram, WhatsApp), Telegram, and Twitter. It offers real-time messaging, media sharing, and a unified chat interface to enhance user communication and engagement.
+RafikiChat is a versatile live chat helper tool designed to integrate seamlessly with major social media platforms including Meta (Facebook, Instagram, WhatsApp), Telegram, and Twitter. Built with Go, Go template language, HTML, CSS, and JavaScript, it offers real-time messaging, media sharing, and a unified chat interface to enhance user communication and engagement.
 
 ## Features
 
@@ -13,11 +13,11 @@ RafikiChat is a versatile live chat helper tool designed to integrate seamlessly
 
 ## Getting Started
 
-Follow these instructions to set up and run Mazungumzo on your local machine.
+Follow these instructions to set up and run RafikiChat on your local machine.
 
 ### Prerequisites
 
-- Node.js
+- Go (version 1.16 or later)
 - MongoDB or any preferred database
 - Telegram API credentials
 - Meta (Facebook, Instagram, WhatsApp) API credentials
@@ -27,7 +27,7 @@ Follow these instructions to set up and run Mazungumzo on your local machine.
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/lawrencembise/RafikiChat.git
+    git clone https://github.com/yourusername/rafikichat.git
     ```
 2. Navigate to the project directory:
     ```bash
@@ -35,7 +35,7 @@ Follow these instructions to set up and run Mazungumzo on your local machine.
     ```
 3. Install dependencies:
     ```bash
-    npm install
+    go mod download
     ```
 
 ### Configuration
@@ -56,15 +56,15 @@ Follow these instructions to set up and run Mazungumzo on your local machine.
 
 1. Start the application:
     ```bash
-    npm start
+    go run main.go
     ```
 
-2. Open your browser and navigate to `http://localhost:3000` to access the Mazungumzo interface.
+2. Open your browser and navigate to `http://localhost:3000` to access the RafikiChat interface.
 
 ## Usage
 
 1. **User Authentication**
-   - Log in using your social media accounts to authorize Mazungumzo to access your messages.
+   - Log in using your social media accounts to authorize RafikiChat to access your messages.
 
 2. **Messaging**
    - Use the unified chat interface to send and receive messages across all connected platforms.
