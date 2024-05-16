@@ -121,3 +121,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 
+## Code of Conduct
+
+This project adheres to the Contributor Covenant [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [lawrencejudica@gmail.com.com](mailto:lawrencejudica@gmail.com.com).
