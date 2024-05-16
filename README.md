@@ -107,20 +107,28 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 - Thanks to the developers and communities behind the APIs and libraries used in this project.
 
----
 
-## Contributors
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
-
-<!-- markdownlint-restore -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/lawrencembise"><img src="https://avatars.githubusercontent.com/lawrencembise?v=4" width="100px;" alt=""/><br /><sub><b>Lawrence Mbise</b></sub></a><br /><a href="#" title="Code">💻</a></td>
+  </tr>
+</table>
+<!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
 
 
 ## Code of Conduct
 
 This project adheres to the Contributor Covenant [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [lawrencejudica@gmail.com.com](mailto:lawrencejudica@gmail.com.com).
+
+---
