@@ -1,4 +1,7 @@
 # RafikiChat
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 RafikiChat is a versatile live chat helper tool designed to integrate seamlessly with major social media platforms including Meta (Facebook, Instagram, WhatsApp), Telegram, and Twitter. Built with Go, Go template language, HTML, CSS, and JavaScript, it offers real-time messaging, media sharing, and a unified chat interface to enhance user communication and engagement.
 
@@ -31,7 +34,7 @@ Follow these instructions to set up and run RafikiChat on your local machine.
     ```
 2. Navigate to the project directory:
     ```bash
-    cd rafikichat
+    cd RafikiChat
     ```
 3. Install dependencies:
     ```bash
@@ -111,6 +114,12 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
