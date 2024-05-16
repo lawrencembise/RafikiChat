@@ -6,7 +6,7 @@ The following is a set of guidelines for contributing to RafikiChat. These are m
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by the [RafikiChat Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [your-email@example.com](mailto:lawrencejudica@gmail.com).
+This project and everyone participating in it is governed by the [RafikiChat Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [lawrencejudica@gmail.com](mailto:lawrencejudica@gmail.com).
 
 ## How Can I Contribute?
 
