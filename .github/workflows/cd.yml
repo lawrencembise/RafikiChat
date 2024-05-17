@@ -34,5 +34,5 @@ jobs:
       env:
         DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       run: |
-        scp -o StrictHostKeyChecking=no ./rafikichat root@your_droplet_ip:/root/rafikichat
-        ssh root@your_droplet_ip 'pkill rafikichat || true && nohup /root/rafikichat &'
+        scp -o StrictHostKeyChecking=no ./rafikichat root@146.190.32.109:/home/lawrence/rafikichat/rafikichat
+        ssh root@146.190.32.109 'sudo systemctl restart rafikichat'
