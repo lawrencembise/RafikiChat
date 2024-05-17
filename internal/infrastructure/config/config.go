@@ -7,6 +7,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
+// Config holds the configuration values from the environment
 type Config struct {
 	Port        string
 	DBHost      string
