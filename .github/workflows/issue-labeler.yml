@@ -1,0 +1,44 @@
+name: Issue Labeler
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  label:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Label issues based on title and body
+      uses: actions/github-script@v4
+      with:
+        script: |
+          const issue = context.payload.issue;
+          const labels = new Set();
+
+          const keywords = {
+            bug: ['bug', 'error', 'fail', 'issue'],
+            feature: ['feature', 'enhancement', 'add', 'implement'],
+            documentation: ['documentation', 'docs', 'readme']
+          };
+
+          const content = (issue.title + ' ' + issue.body).toLowerCase();
+
+          for (const [label, words] of Object.entries(keywords)) {
+            if (words.some(word => content.includes(word))) {
+              labels.add(label);
+            }
+          }
+
+          if (labels.size > 0) {
+            await github.issues.addLabels({
+              issue_number: issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: Array.from(labels)
+            });
+          }
