@@ -18,6 +18,7 @@ type Config struct {
 	SSLMode     string
 }
 
+
 // LoadConfig loads configuration from environment variables
 func LoadConfig() Config {
 	err := godotenv.Load()
