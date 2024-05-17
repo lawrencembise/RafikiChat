@@ -7,32 +7,43 @@ on:
 
 jobs:
   deploy:
-
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: 1.16
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16
 
-    - name: Install dependencies
-      run: go mod download
+      - name: Install dependencies
+        run: go mod download
 
-    - name: Build application
-      run: go build -v ./...
+      - name: Install golint
+        run: |
+          go install golang.org/x/lint/golint@latest
+          echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
 
-    - name: Deploy to DigitalOcean
-      env:
-        DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      run: |
-        scp -o StrictHostKeyChecking=no ./rafikichat root@146.190.32.109:/home/lawrence/rafikichat/rafikichat
-        ssh root@146.190.32.109 'sudo systemctl restart rafikichat'
+      - name: Run golint
+        run: golint ./...
+
+      - name: Build application for amd64 architecture
+        run: |
+          GOARCH=amd64 GOOS=linux go build -o rafikichat cmd/server/main.go
+
+      - name: List files in current directory
+        run: ls -al
+
+      - name: Deploy to DigitalOcean
+        env:
+          DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+        run: |
+          scp -o StrictHostKeyChecking=no ./rafikichat root@146.190.32.109:/home/lawrence/rafikichat/rafikichat
+          ssh root@146.190.32.109 'sudo systemctl restart rafikichat'
