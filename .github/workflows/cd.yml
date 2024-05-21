@@ -45,5 +45,6 @@ jobs:
         env:
           DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
         run: |
+          ssh root@146.190.32.109 'rm -f /var/www/rafikichat/rafikichat'
           scp -o StrictHostKeyChecking=no ./rafikichat root@146.190.32.109:/var/www/rafikichat
           ssh root@146.190.32.109 'sudo systemctl restart rafikichat'
