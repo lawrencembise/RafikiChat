@@ -21,7 +21,7 @@ func NewServer(cfg config.Config) *Server {
 
 	// Define your routes here
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Welcome to RafikiChat!"))
+		w.Write([]byte("Welcome to RafikiChat!!"))
 	}).Methods("GET")
 
 	httpServer := &http.Server{
