@@ -16,16 +16,19 @@ import (
 
 var cfg config.Config
 
+// SetConfig is the function for setting up configuration variables
 func SetConfig(configuration config.Config) {
 	cfg = configuration
 }
 
+// InitiateOAuth is the controller for initializing OAuth with telegram
 func InitiateOAuth(c *gin.Context) {
 	telegramOAuthURL := fmt.Sprintf("https://telegram.org/js/telegram-widget.js?2&data-telegram-login=%s&data-size=large&data-auth-url=%s",
 		cfg.TelegramBotUsername, cfg.TelegramRedirectURI)
 	c.Redirect(http.StatusTemporaryRedirect, telegramOAuthURL)
 }
 
+// HandleOAuthCallback is the controller for handling Telegram OAuth
 func HandleOAuthCallback(c *gin.Context) {
 	authData := make(map[string]string)
 	for key, values := range c.Request.URL.Query() {
@@ -41,6 +44,7 @@ func HandleOAuthCallback(c *gin.Context) {
 	c.Redirect(http.StatusTemporaryRedirect, "/welcome")
 }
 
+// checkTelegramAuthorization is the function for checking telegram authorization
 func checkTelegramAuthorization(authData map[string]string) error {
 	checkHash := authData["hash"]
 	delete(authData, "hash")
@@ -76,11 +80,13 @@ func checkTelegramAuthorization(authData map[string]string) error {
 	return nil
 }
 
+// saveTelegramUserData is the function that is called to save user data after authorization
 func saveTelegramUserData(c *gin.Context, authData map[string]string) {
 	authDataJSON, _ := json.Marshal(authData)
 	c.SetCookie("tg_user", string(authDataJSON), 86400, "/", "", false, true)
 }
 
+// Welcome is the controller for showing welcome page after authorization
 func Welcome(c *gin.Context) {
 	tgUser, err := getTelegramUserData(c)
 	if err != nil {
@@ -101,6 +107,7 @@ func Welcome(c *gin.Context) {
 	c.String(http.StatusOK, html)
 }
 
+// getTelegramUserData is the function for getting user data from telegram
 func getTelegramUserData(c *gin.Context) (map[string]string, error) {
 	tgUserCookie, err := c.Cookie("tg_user")
 	if err != nil {
@@ -115,6 +122,7 @@ func getTelegramUserData(c *gin.Context) (map[string]string, error) {
 	return tgUser, nil
 }
 
+// Logout is the controller for user logout
 func Logout(c *gin.Context) {
 	c.SetCookie("tg_user", "", -1, "/", "", false, true)
 	c.Redirect(http.StatusTemporaryRedirect, "/")
