@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"sort"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -44,6 +45,7 @@ func HandleOAuthCallback(c *gin.Context) {
 		authData[key] = values[0]
 	}
 
+	//debug print
 	fmt.Printf("Received auth data: %+v\n", authData)
 
 	if err := checkTelegramAuthorization(authData); err != nil {
@@ -65,8 +67,9 @@ func checkTelegramAuthorization(authData map[string]string) error {
 	}
 
 	sort.Strings(dataCheckArr)
-	dataCheckString := string([]byte(fmt.Sprintf("%s\n", dataCheckArr)))
+	dataCheckString := strings.Join(dataCheckArr, "\n")
 
+	// The secret key should be the bot token
 	secretKey := sha256.New()
 	secretKey.Write([]byte(cfg.TelegramBotToken))
 
@@ -74,6 +77,7 @@ func checkTelegramAuthorization(authData map[string]string) error {
 	h.Write([]byte(dataCheckString))
 	hash := hex.EncodeToString(h.Sum(nil))
 
+	//debug print
 	fmt.Printf("Calculated hash: %s\nExpected hash: %s\n", hash, checkHash)
 
 	if hash != checkHash {
