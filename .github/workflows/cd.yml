@@ -40,6 +40,10 @@ jobs:
 
       - name: List files in current directory
         run: ls -al
+        
+      - name: Add server to known_hosts
+        run: |
+          ssh-keyscan 146.190.32.109 >> ~/.ssh/known_hosts
 
       - name: Deploy to DigitalOcean
         env:
