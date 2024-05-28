@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"sort"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -16,11 +17,10 @@ import (
 
 var cfg config.Config
 
-// SetConfig is the function for setting up configuration variables
 func SetConfig(configuration config.Config) {
 	cfg = configuration
 }
-// ShowLoginPage show login page
+
 func ShowLoginPage(c *gin.Context) {
 	loginPageHTML := `
     <!DOCTYPE html>
@@ -38,13 +38,13 @@ func ShowLoginPage(c *gin.Context) {
 	c.String(http.StatusOK, fmt.Sprintf(loginPageHTML, cfg.TelegramBotUsername))
 }
 
-
-// HandleOAuthCallback is the controller for handling Telegram OAuth
 func HandleOAuthCallback(c *gin.Context) {
 	authData := make(map[string]string)
 	for key, values := range c.Request.URL.Query() {
 		authData[key] = values[0]
 	}
+
+	fmt.Printf("Received auth data: %+v\n", authData)
 
 	if err := checkTelegramAuthorization(authData); err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
@@ -55,7 +55,6 @@ func HandleOAuthCallback(c *gin.Context) {
 	c.Redirect(http.StatusTemporaryRedirect, "/welcome")
 }
 
-// checkTelegramAuthorization is the function for checking telegram authorization
 func checkTelegramAuthorization(authData map[string]string) error {
 	checkHash := authData["hash"]
 	delete(authData, "hash")
@@ -75,32 +74,29 @@ func checkTelegramAuthorization(authData map[string]string) error {
 	h.Write([]byte(dataCheckString))
 	hash := hex.EncodeToString(h.Sum(nil))
 
-	fmt.Printf("Calculated hash: %s\n", hash)
-	fmt.Printf("Check hash: %s\n", checkHash)
+	fmt.Printf("Calculated hash: %s\nExpected hash: %s\n", hash, checkHash)
 
 	if hash != checkHash {
 		return fmt.Errorf("data is NOT from Telegram")
 	}
 
-	authDate, err := time.Parse("2006-01-02T15:04:05Z", authData["auth_date"])
+	authDate, err := strconv.ParseInt(authData["auth_date"], 10, 64)
 	if err != nil {
-		return err
+		return fmt.Errorf("invalid auth_date")
 	}
 
-	if time.Since(authDate) > 24*time.Hour {
+	if time.Since(time.Unix(authDate, 0)) > 24*time.Hour {
 		return fmt.Errorf("data is outdated")
 	}
 
 	return nil
 }
 
-// saveTelegramUserData is the function that is called to save user data after authorization
 func saveTelegramUserData(c *gin.Context, authData map[string]string) {
 	authDataJSON, _ := json.Marshal(authData)
 	c.SetCookie("tg_user", string(authDataJSON), 86400, "/", "", false, true)
 }
 
-// Welcome is the controller for showing welcome page after authorization
 func Welcome(c *gin.Context) {
 	tgUser, err := getTelegramUserData(c)
 	if err != nil {
@@ -121,7 +117,6 @@ func Welcome(c *gin.Context) {
 	c.String(http.StatusOK, html)
 }
 
-// getTelegramUserData is the function for getting user data from telegram
 func getTelegramUserData(c *gin.Context) (map[string]string, error) {
 	tgUserCookie, err := c.Cookie("tg_user")
 	if err != nil {
@@ -136,7 +131,6 @@ func getTelegramUserData(c *gin.Context) (map[string]string, error) {
 	return tgUser, nil
 }
 
-// Logout is the controller for user logout
 func Logout(c *gin.Context) {
 	c.SetCookie("tg_user", "", -1, "/", "", false, true)
 	c.Redirect(http.StatusTemporaryRedirect, "/")
