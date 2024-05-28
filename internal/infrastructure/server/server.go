@@ -2,43 +2,27 @@ package server
 
 import (
 	"fmt"
-	"log"
-	"net/http"
-	"time"
-
-	"github.com/gorilla/mux"
+	"github.com/gin-gonic/gin"
+	"rafikichat/internal/adapters/http"
 	"rafikichat/internal/infrastructure/config"
+	"rafikichat/internal/adapters/controllers"
 )
 
-// Server represents the HTTP server
 type Server struct {
-	httpServer *http.Server
+	engine *gin.Engine
+	config config.Config
 }
 
-// NewServer initializes a new Server with the given configuration
 func NewServer(cfg config.Config) *Server {
-	router := mux.NewRouter()
-
-	// Define your routes here
-	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Welcome to RafikiChat!!"))
-	}).Methods("GET")
-
-	httpServer := &http.Server{
-		Addr:         fmt.Sprintf(":%s", cfg.Port),
-		Handler:      router,
-		ReadTimeout:  15 * time.Second,
-		WriteTimeout: 15 * time.Second,
-		IdleTimeout:  60 * time.Second,
-	}
-
+	app := gin.Default()
+	controllers.SetConfig(cfg)
+	http.Routers(app)
 	return &Server{
-		httpServer: httpServer,
+		engine: app,
+		config: cfg,
 	}
 }
 
-// Start runs the HTTP server
 func (s *Server) Start() error {
-	log.Printf("Starting server on %s", s.httpServer.Addr)
-	return s.httpServer.ListenAndServe()
+	return s.engine.Run(fmt.Sprintf(":%s", s.config.Port))
 }
