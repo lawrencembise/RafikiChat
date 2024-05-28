@@ -3,7 +3,7 @@ package controllers
 import (
 	"crypto/hmac"
 	"crypto/sha256"
-	"encoding/base64"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -19,6 +19,23 @@ var cfg config.Config
 // SetConfig is the function for setting up configuration variables
 func SetConfig(configuration config.Config) {
 	cfg = configuration
+}
+// ShowLoginPage show login page
+func ShowLoginPage(c *gin.Context) {
+	loginPageHTML := `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>Login with Telegram</title>
+    </head>
+    <body>
+        <h1>Login with Telegram</h1>
+        <script async src="https://telegram.org/js/telegram-widget.js?2" data-telegram-login="%s" data-size="large" data-auth-url="/oauth/callback" data-request-access="write"></script>
+    </body>
+    </html>`
+	c.Header("Content-Type", "text/html")
+	c.String(http.StatusOK, fmt.Sprintf(loginPageHTML, cfg.TelegramBotUsername))
 }
 
 // InitiateOAuth is the controller for initializing OAuth with telegram
@@ -62,7 +79,7 @@ func checkTelegramAuthorization(authData map[string]string) error {
 
 	h := hmac.New(sha256.New, secretKey.Sum(nil))
 	h.Write([]byte(dataCheckString))
-	hash := base64.StdEncoding.EncodeToString(h.Sum(nil))
+	hash := hex.EncodeToString(h.Sum(nil))
 
 	if hash != checkHash {
 		return fmt.Errorf("data is NOT from Telegram")
