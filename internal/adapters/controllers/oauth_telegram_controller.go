@@ -38,12 +38,6 @@ func ShowLoginPage(c *gin.Context) {
 	c.String(http.StatusOK, fmt.Sprintf(loginPageHTML, cfg.TelegramBotUsername))
 }
 
-// InitiateOAuth is the controller for initializing OAuth with telegram
-func InitiateOAuth(c *gin.Context) {
-	telegramOAuthURL := fmt.Sprintf("https://telegram.org/js/telegram-widget.js?2&data-telegram-login=%s&data-size=large&data-auth-url=%s",
-		cfg.TelegramBotUsername, cfg.TelegramRedirectURI)
-	c.Redirect(http.StatusTemporaryRedirect, telegramOAuthURL)
-}
 
 // HandleOAuthCallback is the controller for handling Telegram OAuth
 func HandleOAuthCallback(c *gin.Context) {
@@ -80,6 +74,9 @@ func checkTelegramAuthorization(authData map[string]string) error {
 	h := hmac.New(sha256.New, secretKey.Sum(nil))
 	h.Write([]byte(dataCheckString))
 	hash := hex.EncodeToString(h.Sum(nil))
+
+	fmt.Printf("Calculated hash: %s\n", hash)
+	fmt.Printf("Check hash: %s\n", checkHash)
 
 	if hash != checkHash {
 		return fmt.Errorf("data is NOT from Telegram")

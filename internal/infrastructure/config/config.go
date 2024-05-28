@@ -38,7 +38,7 @@ func LoadConfig() Config {
 		SSLMode:             getEnv("SSL_MODE", "disable"),
 		TelegramBotToken:    getEnv("TELEGRAM_BOT_TOKEN", ""),
 		TelegramBotUsername: getEnv("TELEGRAM_BOT_USERNAME", ""),
-		TelegramRedirectURI: getEnv("TELEGRAM_REDIRECT_URI", "https://hujalas.co.tz/oauth/callback"),
+		TelegramRedirectURI: getEnv("TELEGRAM_REDIRECT_URI", ""),
 	}
 
 	log.Printf("Config loaded: %+v", cfg)
