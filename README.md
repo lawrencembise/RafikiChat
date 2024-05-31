@@ -3,7 +3,7 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-RafikiChat is a versatile live chat helper tool designed to integrate seamlessly with major social media platforms including Meta (Facebook, Instagram, WhatsApp), Telegram, and Twitter. Built with Go, Go template language, HTML, CSS, and JavaScript, it offers real-time messaging, media sharing, and a unified chat interface to enhance user communication and engagement.
+RafikiChat is a versatile live chat helper tool designed to integrate seamlessly with major social media platforms including Meta (Facebook, Instagram, WhatsApp), Telegram, and Twitter. Built with Go and Angular, it offers real-time messaging, media sharing, and a unified chat interface to enhance user communication and engagement.
 
 ## Features
 
