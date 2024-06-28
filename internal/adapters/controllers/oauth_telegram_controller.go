@@ -28,7 +28,7 @@ func ShowLoginPage(c *gin.Context) {
     <html>
     <head>
         <meta charset="utf-8">
-        <title>Login with Telegram</title>
+        <title>Login with Telegram.</title>
     </head>
     <body>
         <h1>Login with Telegram</h1>
