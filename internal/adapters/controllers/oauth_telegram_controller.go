@@ -28,11 +28,41 @@ func ShowLoginPage(c *gin.Context) {
     <html>
     <head>
         <meta charset="utf-8">
-        <title>Login with Telegram.</title>
+        <title>Login with Telegram</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            }
+            .login-container {
+                text-align: center;
+                background: white;
+                padding: 40px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+            h1 {
+                margin-bottom: 20px;
+                font-size: 24px;
+                color: #333;
+            }
+            .telegram-login-button {
+                margin-top: 20px;
+            }
+        </style>
     </head>
     <body>
-        <h1>Login with Telegram.</h1>
-        <script async src="https://telegram.org/js/telegram-widget.js?2" data-telegram-login="%s" data-size="large" data-auth-url="/oauth/callback" data-request-access="write"></script>
+        <div class="login-container">
+            <h1>Login with Telegram</h1>
+            <div class="telegram-login-button">
+                <script async src="https://telegram.org/js/telegram-widget.js?2" data-telegram-login="%s" data-size="large" data-auth-url="/oauth/callback" data-request-access="write"></script>
+            </div>
+        </div>
     </body>
     </html>`
 	c.Header("Content-Type", "text/html")
