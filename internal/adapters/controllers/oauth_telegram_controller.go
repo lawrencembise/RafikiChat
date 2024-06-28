@@ -31,7 +31,7 @@ func ShowLoginPage(c *gin.Context) {
         <title>Login with Telegram.</title>
     </head>
     <body>
-        <h1>Login with Telegram</h1>
+        <h1>Login with Telegram.</h1>
         <script async src="https://telegram.org/js/telegram-widget.js?2" data-telegram-login="%s" data-size="large" data-auth-url="/oauth/callback" data-request-access="write"></script>
     </body>
     </html>`
